@@ -1,10 +1,10 @@
 import badge_lib
 import time
-
+from coins_list import kmd_notarized_coins
 
 def main():
     while True:
-        badge_lib.coin_dpow_badge(badge_lib.kmd_notarized_coins)
+        badge_lib.coin_dpow_badge(kmd_notarized_coins)
         time.sleep(360)
 
 
