@@ -437,7 +437,7 @@ def coin_dpow_badge(notarized_coins_list):
                    if int(coin_data["minutes_since_nota"]) < 144:
                        coin_dpow_status = "active"
                        status_color = "green"
-                   elif 720 < int(coin_data["minutes_since_nota"]) < 1440:
+                   elif int(coin_data["minutes_since_nota"]) < 1440:
                        coin_dpow_status = "irregular"
                        status_color = "yellow"
                    else:
