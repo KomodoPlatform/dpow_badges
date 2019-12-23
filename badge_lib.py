@@ -433,16 +433,17 @@ def coin_dpow_badge(notarized_coins_list):
                    print(e)
                    print(coin_data)
                    print(coin_fetched_data)
-               if int(coin_data["minutes_since_nota"]) < 144:
-                   coin_dpow_status = "active"
-                   status_color = "green"
-               elif 720 < int(coin_data["minutes_since_nota"]) < 1440:
-                   coin_dpow_status = "irregular"
-                   status_color = "yellow"
                else:
-                   coin_dpow_status = "inactive"
-                   status_color = "red"
-               dpow_status_badge = badge(left_text='dPOW status', right_text=coin_dpow_status, right_color=status_color)
-               with open("/var/www/html/svg/"+coin_data["name"]+"_badge.svg", 'w') as f:
-                   f.write(dpow_status_badge)
+                   if int(coin_data["minutes_since_nota"]) < 144:
+                       coin_dpow_status = "active"
+                       status_color = "green"
+                   elif 720 < int(coin_data["minutes_since_nota"]) < 1440:
+                       coin_dpow_status = "irregular"
+                       status_color = "yellow"
+                   else:
+                       coin_dpow_status = "inactive"
+                       status_color = "red"
+                   dpow_status_badge = badge(left_text='dPOW status', right_text=coin_dpow_status, right_color=status_color)
+                   with open("/var/www/html/svg/"+coin_data["name"]+"_badge.svg", 'w') as f:
+                       f.write(dpow_status_badge)
 
