@@ -1,7 +1,9 @@
 import requests
 import time
+from datetime import datetime
 import json
 import sys
+import pytz
 from PIL import Image, ImageDraw, ImageFont
 from pybadges import badge
 
@@ -410,7 +412,16 @@ def create_coin_badge(coin_data):
 
 
 def coin_dpow_badge(notarized_coins_list):
-    coins_notarization_info = json.loads(requests.get("https://komodostats.com/api/notary/summary.json").content)
+    try:
+        coins_notarization_info = json.loads(requests.get("https://komodostats.com/api/notary/summary.json").content)
+    except Exception as e:
+        print(e)
+    print("Creating date badge")
+    fetch_time = datetime.now(pytz.utc)
+    fetch_time_string = fetch_time.strftime("%d/%m/%Y %H:%M:%S UTC")
+    dpow_date_badge = badge(left_text='dPOW status', right_text="fetched at: " + fetch_time_string, right_color="black")
+    with open("/var/www/html/svg/"+"date_badge.svg", 'w') as f:
+        f.write(dpow_date_badge)
     for coin_data in notarized_coins_list:
         print("Creating badge for " + coin_data["name"])
         for coin_fetched_data in coins_notarization_info:
